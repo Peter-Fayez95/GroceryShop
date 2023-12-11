@@ -1,0 +1,43 @@
+{% extends 'dashboard/base.html' %}
+
+{% block dashcontent %}
+  {% if request.user.is_staff or request.user.is_superuser %}
+
+      <a href = "{% url 'dashboard:brand_dashboard:create_brand'%}">
+          Create Brand
+      </a>
+  {% endif %}
+    {% for object in object_list %} 
+        <div>
+            <p> {{ object.name }} </p>
+            <img src="{{ object.image.url }}">
+            <p> id : {{ object.id }} </p>
+            <p> slug : {{ object.slug }} </p>
+            {% if request.user.is_staff or request.user.is_superuser %}
+              <button data-delete-url="{% url 'dashboard:brand_dashboard:delete_brand' pk=object.pk %}" type="button" class="btn btn-primary delete-modal" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Delete Brand
+              </button>
+            {% endif %}
+             
+        </div>
+    {% endfor %}
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Image</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              Are you sure you want to delete this brand ? 
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <a id="delete-button" href="" class="btn btn-danger">Delete</a>
+            </div>
+          </div>
+        </div>
+    </div>
+
+{% endblock %} 
