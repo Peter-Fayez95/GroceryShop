@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div id="carouselExampleIndicators" class="carousel slide">
+        <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            {% for image in object.productimage_set.all %}
+                <div class="carousel-item {% if forloop.counter0 == 0 %} active {% endif %}">
+                    <img src="{{ image.image_url }}" class="d-block w-100" alt="{{ image.alt }}">
+                </div>
+            {% endfor %}
+            {% comment %} <div class="carousel-item">
+                <img src="https://images-eu.ssl-images-amazon.com/images/I/71oyM0epm4L._AC_UL600_SR600,400_.jpg" class="d-block w-100" alt="bla">
+            </div> {% endcomment %}
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    <h1> {{ object.name }}</h1>
+    <p> price: {{ object.price }}</p>
+    <p> sku: {{ object.sku }}</p>
+    <p> weight: {{ object.weight }}</p>
+    <p> brand: {{ object.brand }}</p>
+    <p> description: {{ object.description }}</p>
+    <form action = "{% url 'products:add_product_to_checkout' pk=object.pk %}" method = "post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class = "btn btn-primary">Add To Cart</button>
+    </form>
+
+    <ul>
+        <li>Count of users who bought this item: {{ users_total }}</li>
+        <li>Count of users who bought this item in the last 24 hours: {{ users_last_24 }}</li>
+    </ul>
+{% endblock %}
