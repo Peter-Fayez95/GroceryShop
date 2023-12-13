@@ -1,0 +1,57 @@
+{% extends 'dashboard/base.html' %}
+
+{% block dashcontent %}
+    {% if request.user.is_staff or request.user.is_superuser %}
+
+      <a href="{% url 'dashboard:product_dashboard:product_create' %}"> 
+          Create Product 
+      </a>
+    {% endif %}
+    <form action="{% url 'dashboard:product_dashboard:product_list' %}" method="get">
+      {% csrf_token %}
+      {{ filter_form.as_p }}
+      <button class = "btn btn-outline-info" type="submit">Filter</button>
+      
+    </form>
+  
+    {% for object in object_list %} 
+    <div>
+
+        
+        {% if request.user.is_staff or request.user.is_superuser %}
+          <a href = "{% url 'dashboard:product_dashboard:product_update' pk=object.pk %}">
+            {{ object.name }}     
+          </a>
+
+          <button data-delete-url="{% url 'dashboard:product_dashboard:delete_product' pk=object.pk %}" type="button" class="btn btn-primary delete-modal" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Delete Product
+          </button>
+        {% else %}
+          <a href = "{% url 'products:detail_product' slug=object.slug %}">
+            {{ object.name }}
+          </a>
+        {% endif %}
+
+    </div>
+    {% endfor %}
+    
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Image</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              Are you sure you want to delete this product ? 
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <a id="delete-button" href="" class="btn btn-danger">Delete</a>
+            </div>
+          </div>
+        </div>
+    </div>
+{% endblock %}
+
+ 
