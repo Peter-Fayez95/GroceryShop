@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            {% if checkout_line %}
+                {% for line in checkout_line %}
+                    <div class="col-md-12">
+                        <p>{{ line }} [{{ line.product.sku }}]</p>
+                        <p>{{ line.quantity  }} x {{ line.product.price }}$</p>
+                        <p>subtotal: {{ line.get_sub_total }}</p>
+                        <hr> 
+                    </div>
+                {% endfor %}
+                <p> total : {{total}} </p>
+            {% endif %}
+            <form action="{% url 'checkout:create_order_view' %}" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-success">Buy Now</button> 
+            </form>
+            {% comment %} {% if form.errors %}
+                <ul>
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li>{{ field.label }}: {{ form.errors }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            {% endif %} {% endcomment %}
+        </div>
+    </div>
+{% endblock %}
