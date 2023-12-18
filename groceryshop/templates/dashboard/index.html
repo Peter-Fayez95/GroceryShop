@@ -1,0 +1,49 @@
+{% extends 'dashboard/base.html' %}
+
+{% comment %} This whole file is additional
+{% endcomment %}
+
+{% block dashcontent %}
+    {% if not request.user.is_authenticated %}
+        <h1> Welcome to our online store </h1>
+        <p>
+            please <a href = "{% url 'account_login' %}"> login  </a>  or
+            <a href = "{% url 'account_signup' %}"> signup  </a> to continue to our storefront.
+        </p>
+    {% else %}
+    <h2> Welcome to our online store </h2>
+    <div>
+        <p> username:{{ request.user.username }} </p>
+        <p> email:{{ request.user.email }} </p>
+    </div>
+
+    <h2> Previous Orders </h2>
+    <div>
+        {% comment %} 
+        
+        order_status = ((0, "Fullfield"), (1, "Unfullfield"), (2, "Canceled"), (3, "Refunded"))
+
+        {% endcomment %}
+        {% for order in orders %}
+
+            <p>{{ order.created }} | 
+                {% if order.status == 0  %}
+                    delivered
+                {% elif order.status == 1 %}
+                    not delivered
+                {% elif order.status == 2 %}
+                    Canceled
+                {% elif order.status == 3 %}
+                    Refunded
+                {% else%}
+                    unknow status
+                {% endif %}    
+            
+            
+            |  total price: {{ order.total }}$</p>
+        {% endfor %}
+    </div>
+    <hl>
+    {% endif %}
+    
+{% endblock %}
