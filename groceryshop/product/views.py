@@ -32,14 +32,14 @@ def detail_product(request, slug, form = None):
 class ListProduct(ListView):
     model = Product
     template_name = 'product/list.html'  
-    paginate_by = 2
+    paginate_by = 10
     
     def get_queryset(self):
         category = get_object_or_404(Category, slug = self.kwargs.get('slug'))
         categories = category.get_descendants(include_self=True)
         qs = super(ListProduct,self).get_queryset().filter(
             category__in=categories
-        )
+        ).order_by('name')
         
         
         return qs
