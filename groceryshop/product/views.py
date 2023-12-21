@@ -39,7 +39,7 @@ class ListProduct(ListView):
         categories = category.get_descendants(include_self=True)
         qs = super(ListProduct,self).get_queryset().filter(
             category__in=categories
-        )
+        ).order_by('name')
         
         
         return qs
