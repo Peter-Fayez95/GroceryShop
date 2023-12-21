@@ -79,9 +79,7 @@ class ListProduct(ListView):
         # based on brand name choice
         brand_name_choice = (self.request.GET.get('brand_name_choice'))
         if brand_name_choice != '' and brand_name_choice is not None:
-            brand_name_choice = brand_name_choice.lower()
-            # brand_name_choice = brand_name_choice
-            
+            brand_name_choice = brand_name_choice.lower()            
             queryset = queryset.filter(brand__name__iexact = brand_name_choice)
         
         

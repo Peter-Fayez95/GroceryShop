@@ -1,27 +1,46 @@
-{% extends 'base.html'%}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block static %}
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock %}
 
 {% block content %}
-    {% for object in object_list %}
-        <a href="{% url 'products:detail_product' slug=object.slug%}">
-            <img src="{{ object.get_thumbnail.image.url }}" alt = "{{ object.get_thumbnail.alt }}">
-            <h5>{{ object.name }} </h5>
-            <p>{{ object.sku }} | {{object.price}}$ </p>
-        </a>
-    {% endfor %}
+    <div class="pagination">
+        {% if is_paginated %}  
+            {% if page_obj.has_previous %}
+                <a class="btn btn-outline-dark" href="?page={{ page_obj.previous_page_number }}"><b>Previous</b></a>
+            {% endif %}
+            <span>
+                <b>Page: {{ page_obj.number }} out of {{ page_obj.paginator.num_pages }}</b> 
+            </span>
+            {% if page_obj.has_next %}
+                <a class="btn btn-outline-dark" href="?page={{ page_obj.next_page_number }}"><b>Next</b></a>
+            {% endif %}
+        {% endif %}
+    </div>
     
-    {% comment %} add a next and previous page href to category {% endcomment %}
-    {% if is_paginated %}  
-        {% comment %} previous page href {% endcomment %}
-        {% if page_obj.has_previous %}
-            <a href="?page={{ page_obj.previous_page_number}}">previous</a>
+    <div class="object-list">
+        {% for object in object_list %}
+            <a class="object-item" href="{% url 'products:detail_product' slug=object.slug%}">
+                <img src="{{ object.get_thumbnail.image_url }}" alt="{{ object.get_thumbnail.alt }}">
+                <h5>{{ object.name }}</h5>
+                <h5>EGP {{ object.price }}</h5>
+            </a>
+        {% endfor %}
+    </div>
+    
+    <div class="pagination">
+        {% if is_paginated %}  
+            {% if page_obj.has_previous %}
+                <a class="btn btn-outline-dark" href="?page={{ page_obj.previous_page_number }}"><b>Previous</b></a>
+            {% endif %}
+            <span>
+                <b>Page: {{ page_obj.number }} out of {{ page_obj.paginator.num_pages }}</b> 
+            </span>
+            {% if page_obj.has_next %}
+                <a class="btn btn-outline-dark" href="?page={{ page_obj.next_page_number }}"><b>Next</b></a>
+            {% endif %}
         {% endif %}
-        <span>
-            Page: {{page_obj.number}} out of {{page_obj.paginator.num_pages}}
-        </span>
-        {% comment %} next page href {% endcomment %}
-        {% if page_obj.has_next %}
-        <a href="?page={{ page_obj.next_page_number}}">next</a>
-        {% endif %}
-    {% endif %}
-
-{% endblock %} 
+    </div>
+{% endblock %}

@@ -5,17 +5,9 @@
         {% for var in path %}
             <h2> <a href="{% url 'products:list_product' slug=var.slug %} "> {{var.name}} </a></h2>
             <p> Description: {{var.description}} </p>
-            <img src="{{ var.background_image.url }}">
+            <img src="{{ var.background_image_url }}">
 
         {% endfor %}
     </ul>
 
-    {% comment %} {% for cat in categories %}
-        <div>
-            <a href="{% url 'dashboard:category_dashboard:category_detail' pk=cat.pk %}"> {{ cat.name }} </p>
-            <a href="{% url 'dashboard:category_dashboard:category_update' pk=cat.pk %}"> update </a>
-            <a href=""> delete </a>
-        </div>
-        
-    {% endfor %} {% endcomment %}
 {% endblock %}

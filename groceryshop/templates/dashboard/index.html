@@ -5,20 +5,20 @@
 
 {% block dashcontent %}
     {% if not request.user.is_authenticated %}
-        <h1> Welcome to our online store </h1>
-        <p>
-            please <a href = "{% url 'account_login' %}"> login  </a>  or
-            <a href = "{% url 'account_signup' %}"> signup  </a> to continue to our storefront.
-        </p>
-    {% else %}
-    <h2> Welcome to our online store </h2>
-    <div>
-        <p> username:{{ request.user.username }} </p>
-        <p> email:{{ request.user.email }} </p>
-    </div>
 
-    <h2> Previous Orders </h2>
-    <div>
+        <div class="welcome-section">
+            <h1>Welcome to our online store</h1>
+            <p>Please <a href="{% url 'account_login' %}">login</a> or <a href="{% url 'account_signup' %}">signup</a> to continue to our storefront.</p>
+        </div>
+    {% else %}
+    <div class="user-info">
+        <h2> Welcome to our online store </h2>
+        <h4> Username: {{ request.user.username }} </h4>
+        <h4> Email: {{ request.user.email }} </h4>
+    </div>
+    
+    <div class="order-list">
+        <h2> Previous Orders </h2>
         {% comment %} 
         
         order_status = ((0, "Fullfield"), (1, "Unfullfield"), (2, "Canceled"), (3, "Refunded"))
