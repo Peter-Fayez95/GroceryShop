@@ -1,14 +1,11 @@
-{% extends 'base.html'%}
+{% extends 'base.html' %}
 {% load static %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>product_list</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-</head>
+{% block static %}
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock %}
 
 {% block content %}
-    {% comment %} add a next and previous page href to category {% endcomment %}
     <div class="pagination">
         {% if is_paginated %}  
             {% if page_obj.has_previous %}
@@ -25,12 +22,11 @@
     
     <div class="object-list">
         {% for object in object_list %}
-            <p>
             <a class="object-item" href="{% url 'products:detail_product' slug=object.slug%}">
                 <img src="{{ object.get_thumbnail.image_url }}" alt="{{ object.get_thumbnail.alt }}">
                 <h5>{{ object.name }}</h5>
-                <p>{{ object.sku }} | {{ object.price }}$</p>
-            </a> <p>
+                <h5>EGP {{ object.price }}</h5>
+            </a>
         {% endfor %}
     </div>
     
