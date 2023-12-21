@@ -7,12 +7,10 @@
       </a>
     {% endif %}
     
-    <p> ---------------------------------------------------- </p>
-
     {% for object in object_list %}
-        <div> 
+        <div class="category-item" > 
             {% if request.user.is_staff or request.user.is_superuser %}
-              <a href="{% url 'dashboard:category_dashboard:category_update' pk=object.pk %}"> {{ object.name }} </a>
+              <a url="{% url 'dashboard:category_dashboard:category_update' pk=object.pk %}"> {{ object.name }} </a>
               <button data-delete-url="{% url 'dashboard:category_dashboard:delete_category' pk=object.pk %}" type="button" class="btn btn-primary delete-modal" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Delete Category
               </button>

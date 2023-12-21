@@ -10,12 +10,4 @@
         {% endfor %}
     </ul>
 
-    {% comment %} {% for cat in categories %}
-        <div>
-            <a href="{% url 'dashboard:category_dashboard:category_detail' pk=cat.pk %}"> {{ cat.name }} </p>
-            <a href="{% url 'dashboard:category_dashboard:category_update' pk=cat.pk %}"> update </a>
-            <a href=""> delete </a>
-        </div>
-        
-    {% endfor %} {% endcomment %}
 {% endblock %}
