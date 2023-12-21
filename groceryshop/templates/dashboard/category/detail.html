@@ -5,7 +5,7 @@
         {% for var in path %}
             <h2> <a href="{% url 'products:list_product' slug=var.slug %} "> {{var.name}} </a></h2>
             <p> Description: {{var.description}} </p>
-            <img src="{{ var.background_image.url }}">
+            <img src="{{ var.background_image_url }}">
 
         {% endfor %}
     </ul>
