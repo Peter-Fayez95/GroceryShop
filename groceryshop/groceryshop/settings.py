@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'product',
     'checkout',
     'order',
+    'django_extensions'
 ]
 
 SITE_ID = 1
