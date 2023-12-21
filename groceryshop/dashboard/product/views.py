@@ -66,28 +66,30 @@ class ListProduct(ListView):
         # based on brand nationality
         brand_Nationality = self.request.GET.get('brand_Nationality')
         if brand_Nationality != '' and brand_Nationality is not None:
-            queryset = queryset.filter(brand__country = brand_Nationality)
+            queryset = queryset.filter(brand__country__iexact = brand_Nationality)
         
         
         # based on brand name
         brand_name = (self.request.GET.get('brand_name'))            
         if brand_name != '' and brand_name is not None:
             brand_name = brand_name.lower()
-            queryset = queryset.filter(brand__name__contains = brand_name)
+            queryset = queryset.filter(brand__name__icontains = brand_name)
         
         
         # based on brand name choice
         brand_name_choice = (self.request.GET.get('brand_name_choice'))
         if brand_name_choice != '' and brand_name_choice is not None:
             brand_name_choice = brand_name_choice.lower()
-            queryset = queryset.filter(brand__name = brand_name_choice)
+            # brand_name_choice = brand_name_choice
+            
+            queryset = queryset.filter(brand__name__iexact = brand_name_choice)
         
         
         # based on product name
         product_name = (self.request.GET.get('product_name'))            
         if product_name != '' and product_name is not None:
             product_name = product_name.lower()
-            queryset = queryset.filter(name__contains = product_name)
+            queryset = queryset.filter(name__icontains = product_name)
         
         return queryset
 
