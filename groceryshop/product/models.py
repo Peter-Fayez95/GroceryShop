@@ -4,6 +4,7 @@ from django.utils.text import slugify
 from mptt.managers import TreeManager
 from mptt.models import MPTTModel
 from django_countries.fields import CountryField
+import uuid
 
 fields = ["name", "description", "background_image"]
 
@@ -46,10 +47,10 @@ class Brand(models.Model):
 class Product(models.Model):
     name = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255)
-    description = models.TextField(default = name)
+    description = models.TextField(default = '')
     price = models.FloatField(default=0)
     weight = models.FloatField(default = 1)
-    sku = models.CharField(max_length=30, unique = True)
+    sku = models.UUIDField(default = uuid.uuid4, unique = True, editable = False)
     stock = models.PositiveIntegerField(default = 5)
     brand = models.ForeignKey('Brand',on_delete= models.CASCADE, null = True)
     category = models.ForeignKey('Category',on_delete= models.CASCADE, null = True)
@@ -67,7 +68,7 @@ class Product(models.Model):
 # name - image url - price - brand
     
 class ProductImage(models.Model):
-    image = models.ImageField(blank = True)
-    #image_url = models.URLField(blank = True)
+    # image = models.ImageField(blank = True)
+    image_url = models.URLField(blank = True)
     product = models.ForeignKey('Product', on_delete = models.CASCADE)
     alt = models.CharField(max_length = 225)
