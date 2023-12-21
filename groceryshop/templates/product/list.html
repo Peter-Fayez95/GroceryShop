@@ -1,46 +1,50 @@
 {% extends 'base.html'%}
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <title>product_list</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
 
 {% block content %}
     {% comment %} add a next and previous page href to category {% endcomment %}
-    <div class="d-flex align-items-center justify-content-center" style="height: 250px;">
+    <div class="pagination">
         {% if is_paginated %}  
-            {% comment %} previous page href {% endcomment %}
             {% if page_obj.has_previous %}
-                <a class = "btn btn-outline-dark" href="?page={{ page_obj.previous_page_number}}"><b>previous</b></a>
+                <a class="btn btn-outline-dark" href="?page={{ page_obj.previous_page_number }}"><b>Previous</b></a>
             {% endif %}
             <span>
-                 <b> Page: {{page_obj.number}} out of {{page_obj.paginator.num_pages}} </b> 
+                <b>Page: {{ page_obj.number }} out of {{ page_obj.paginator.num_pages }}</b> 
             </span>
-            {% comment %} next page href {% endcomment %}
             {% if page_obj.has_next %}
-            <a  class = "btn btn-outline-dark" href="?page={{ page_obj.next_page_number}}"><b>next</b></a>
+                <a class="btn btn-outline-dark" href="?page={{ page_obj.next_page_number }}"><b>Next</b></a>
             {% endif %}
         {% endif %}
     </div>
-    {% for object in object_list %}
-        <a href="{% url 'products:detail_product' slug=object.slug%}">
-            <img src="{{ object.get_thumbnail.image_url }}" alt = "{{ object.get_thumbnail.alt }}">
-            <h5>{{ object.name }} </h5>
-            <p>{{ object.sku }} | {{object.price}}$ </p>
-        </a>
-    {% endfor %}
     
-    {% comment %} add a next and previous page href to category {% endcomment %}
-    <div class="d-flex align-items-center justify-content-center" style="height: 250px;">
+    <div class="object-list">
+        {% for object in object_list %}
+            <p>
+            <a class="object-item" href="{% url 'products:detail_product' slug=object.slug%}">
+                <img src="{{ object.get_thumbnail.image_url }}" alt="{{ object.get_thumbnail.alt }}">
+                <h5>{{ object.name }}</h5>
+                <p>{{ object.sku }} | {{ object.price }}$</p>
+            </a> <p>
+        {% endfor %}
+    </div>
+    
+    <div class="pagination">
         {% if is_paginated %}  
-            {% comment %} previous page href {% endcomment %}
             {% if page_obj.has_previous %}
-                <a class = "btn btn-outline-dark" href="?page={{ page_obj.previous_page_number}}"><b>previous</b></a>
+                <a class="btn btn-outline-dark" href="?page={{ page_obj.previous_page_number }}"><b>Previous</b></a>
             {% endif %}
             <span>
-                <b>  Page: {{page_obj.number}} out of {{page_obj.paginator.num_pages}} </b> 
+                <b>Page: {{ page_obj.number }} out of {{ page_obj.paginator.num_pages }}</b> 
             </span>
-            {% comment %} next page href {% endcomment %}
             {% if page_obj.has_next %}
-            <a  class = "btn btn-outline-dark" href="?page={{ page_obj.next_page_number}}"><b>next</b></a>
+                <a class="btn btn-outline-dark" href="?page={{ page_obj.next_page_number }}"><b>Next</b></a>
             {% endif %}
         {% endif %}
     </div>
-
-
-{% endblock %} 
+{% endblock %}
