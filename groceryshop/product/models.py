@@ -50,7 +50,8 @@ class Product(models.Model):
     description = models.TextField(default = '')
     price = models.FloatField(default=0)
     weight = models.FloatField(default = 1)
-    sku = models.UUIDField(default = uuid.uuid4, unique = True, editable = False)
+    # sku needs more work
+    sku = models.UUIDField(default = uuid.uuid4, unique = True, editable = True)
     stock = models.PositiveIntegerField(default = 5)
     brand = models.ForeignKey('Brand',on_delete= models.CASCADE, null = True)
     category = models.ForeignKey('Category',on_delete= models.CASCADE, null = True)
