@@ -10,7 +10,7 @@
     {% for object in object_list %} 
         <div>
             <p> {{ object.name }} </p>
-            <img src="{{ object.image.url }}">
+            <img src="{{ object.image_url }}">
             <p> id : {{ object.id }} </p>
             <p> slug : {{ object.slug }} </p>
             {% if request.user.is_staff or request.user.is_superuser %}
