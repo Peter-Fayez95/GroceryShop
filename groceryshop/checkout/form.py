@@ -37,11 +37,15 @@ class MonthYearWidget(SelectDateWidget):
 def clean_card_number(card_number):
     if not card_number.isdigit():
         raise ValidationError("Card number should contain only digits.")
+    if len(card_number) < 16:
+        raise ValidationError("Card number should contain exactly 16 digits.")
     return card_number
 
 def clean_cvv(cvv):
     if not cvv.isdigit():
         raise ValidationError("CVV should contain only digits.")
+    if len(cvv) < 3:
+        raise ValidationError("CVV should contain 3 to 4 digits.")
     return cvv
     
 
@@ -52,5 +56,3 @@ class PaymentCardForm(Form):
     expiration_date = DateField(widget=MonthYearWidget(years=range(2000, 2030), empty_label=("Choose Year", "Choose Month", "")))
     cvv = CharField(label='CVV', max_length=4, validators=[clean_cvv])
     cardholder_name = CharField(label='Cardholder Name', max_length=100)
-
-    

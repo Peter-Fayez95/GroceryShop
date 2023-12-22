@@ -12,7 +12,7 @@
 
                         <p>subtotal: {{ line.get_sub_total }}</p>
                         
-                        <a class="btn btn-primary" href="{% url 'checkout:delete_item' pk=line.pk  %}">Delete Item</a>
+                        <a class="btn btn-outline-danger" href="{% url 'checkout:delete_item' pk=line.pk  %}">Delete Item</a>
 
 
                         <hr> 
