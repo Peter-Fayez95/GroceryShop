@@ -25,22 +25,25 @@
 
         {% endcomment %}
         {% for order in orders %}
+            <a href="{% url 'order:detail_order' pk=order.pk %}"> 
 
-            <p>{{ order.created }} | 
-                {% if order.status == 0  %}
-                    delivered
-                {% elif order.status == 1 %}
-                    not delivered
-                {% elif order.status == 2 %}
-                    Canceled
-                {% elif order.status == 3 %}
-                    Refunded
-                {% else%}
-                    unknow status
-                {% endif %}    
+                <p>{{ order.created }} | 
+                    {% if order.status == 0  %}
+                        delivered
+                    {% elif order.status == 1 %}
+                        not delivered
+                    {% elif order.status == 2 %}
+                        Canceled
+                    {% elif order.status == 3 %}
+                        Refunded
+                    {% else%}
+                        unknow status
+                    {% endif %}    
+                
+                
+                |  total price: {{ order.total }}$</p>
+            </a>
             
-            
-            |  total price: {{ order.total }}$</p>
         {% endfor %}
     </div>
     <hl>
