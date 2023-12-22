@@ -6,7 +6,7 @@ from django.views.generic import DetailView, ListView
 
 # Create your views here.
 class DetailOrder(DetailView):
-    paginate_by = 10
+    paginate_by = 12
     model = Order
     template_name = 'order/detail.html'
     
@@ -14,7 +14,7 @@ class DetailOrder(DetailView):
 class ListOrder(ListView):
     model = Order
     template_name = 'order/list.html'
-    paginate_by = 10
+    paginate_by = 12
     
     def get_queryset(self):
         user = self.request.user

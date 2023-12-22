@@ -159,6 +159,7 @@ def create_order_view(request):
     }
     return TemplateResponse(request, 'checkout/confirm_order.html', context)
 
+
 def delete_item(request,pk):
     item = get_object_or_404(CheckoutLine,pk=pk) 
     if item:
