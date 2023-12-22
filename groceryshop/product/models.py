@@ -73,3 +73,4 @@ class ProductImage(models.Model):
     image_url = models.URLField(blank = True)
     product = models.ForeignKey('Product', on_delete = models.CASCADE)
     alt = models.CharField(max_length = 225)
+    

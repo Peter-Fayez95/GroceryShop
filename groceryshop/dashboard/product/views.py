@@ -4,10 +4,12 @@ from django.http import JsonResponse
 from django.utils.text import slugify
 from django.views.generic import CreateView, UpdateView, ListView
 from product.models import Product,ProductImage, Category
+from order.models import OrderLine
 from django.shortcuts import get_object_or_404, render
 from .forms import ProductImageForm
 from django.urls import reverse
 from .forms import FilterForm
+from django.db.models import Count
 from math import inf
 
 
@@ -42,7 +44,7 @@ class UpdateProduct(UpdateView):
 class ListProduct(ListView):
     model = Product
     template_name = "dashboard/product/list.html"
-    paginate_by = 10
+    paginate_by = 12
     context_object_name = "product_list"
 
     def get_queryset(self):
@@ -50,6 +52,8 @@ class ListProduct(ListView):
 
 
         # Filter queryset based on price if form data is present
+        best_sellers = self.request.GET.get('submit_action') == 'best_sellers'
+        
         min_price = self.request.GET.get('min_price')
         max_price = self.request.GET.get('max_price')
         if (min_price != '' and min_price is not None) or (max_price != '' and max_price is not None):
@@ -89,6 +93,11 @@ class ListProduct(ListView):
             product_name = product_name.lower()
             queryset = queryset.filter(name__icontains = product_name)
         
+        if best_sellers:
+            queryset = queryset.annotate(orders_count = Count('orderlines'))
+            queryset = queryset.order_by("-orders_count", "name")
+        else:
+            queryset = queryset.order_by("name")
         return queryset
 
     def get_context_data(self, **kwargs):
