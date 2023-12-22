@@ -27,8 +27,6 @@ class UserProfile(models.Model):
     def __str__(self):
         return self.user.email
         
-        
-        
 @receiver(post_save, sender=User)
 def create_profile(instance, created, *args, **kwargs):
     

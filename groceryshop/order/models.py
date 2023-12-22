@@ -34,7 +34,8 @@ class OrderLine(models.Model):
         'product.Product', 
         on_delete =  models.SET_NULL,
         blank = True,
-        null = True
+        null = True,
+        related_name = "orderlines"
     )
     
     product_name = models.CharField(max_length = 255)
