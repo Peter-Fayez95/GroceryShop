@@ -10,6 +10,9 @@ from order.models import Order, OrderLine
 from .decorator import user_cookie_checkout
 from product.models import Product
 from .form import PaymentCardForm
+from random import randint
+from django.utils import timezone
+from datetime import datetime, timedelta
 
 def get_checkout(request):
     user = request.user
@@ -99,18 +102,20 @@ def create_order_view(request):
     checkout = get_checkout(request)
     checkout_line = checkout.checkoutline_set.all()
     total = 0
+
     if checkout_line.count() > 0:
-        for line in checkout_line: total += line.get_sub_total()
+        for line in checkout_line: 
+            total += line.get_sub_total()
 
     if request.method == "POST":
         if checkout_line.count() > 0:
             if user.is_authenticated:
                 order = Order.objects.create(checkout_token=checkout.token, user=user, 
-                                             email=user.email, shipping=checkout.shipping)
+                                             email=user.email, shipping=checkout.shipping, total=total)
                 
             else:
                 order = Order.objects.create(checkout_token=checkout.token, email=checkout.email, 
-                                               shipping=checkout.shipping)
+                                               shipping=checkout.shipping, total=total)
             
             # print("-"*20)
             form = PaymentCardForm(request.POST)
@@ -123,7 +128,6 @@ def create_order_view(request):
                     'form': form
                 }
                 return TemplateResponse(request, 'checkout/confirm_order.html', context)
-        
             
             for line in checkout_line:
                 product = line.product
@@ -139,12 +143,13 @@ def create_order_view(request):
             order.save()
             checkout.delete()
             response = HttpResponseRedirect(reverse('order:detail_order', kwargs={
-                'pk': order.pk,
-                
+                'pk': order.pk,    
             }))
             response.delete_cookie('checkout', None)
             return response
+    
     form = PaymentCardForm()
+    
     context = {
         'checkout_line': checkout_line,
         'checkout': checkout,

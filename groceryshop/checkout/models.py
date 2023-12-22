@@ -48,7 +48,7 @@ class CheckoutLine(models.Model):
     
     
     def get_sub_total(self):
-        return self.product.price * self.quantity
+        return round(self.product.price * self.quantity, 2)
     
     
 

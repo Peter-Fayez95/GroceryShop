@@ -4,7 +4,7 @@
     {% for foo in object_list %}
         <div>
             <a href="{% url 'order:detail_order' pk=object.pk %}">
-                {{ object.email }} | {{ object.total }}$
+                {{ foo.email }} | {{ foo.total }}$
             </a>
         </div>
     {% endfor %}

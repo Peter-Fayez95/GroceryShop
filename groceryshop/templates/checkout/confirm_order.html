@@ -19,15 +19,12 @@
                 {{ form.as_p }}
                 <button type="submit" class="btn btn-success">Buy Now</button> 
             </form>
-            {% comment %} {% if form.errors %}
-                <ul>
-                    {% for field in form %}
-                        {% for error in field.errors %}
-                            <li>{{ field.label }}: {{ form.errors }}</li>
-                        {% endfor %}
-                    {% endfor %}
-                </ul>
-            {% endif %} {% endcomment %}
+            
+            {% comment %} <form action="{% url 'checkout:create_order_view' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="lucky" value="true">
+                <button type="submit" class="btn btn-success">I'm Feeling Lucky</button> 
+            </form> {% endcomment %}
         </div>
     </div>
 {% endblock %}

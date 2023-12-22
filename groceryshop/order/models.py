@@ -17,7 +17,7 @@ class Order(models.Model):
     checkout_token = models.CharField(max_length=36, default="")
     note = models.TextField(blank=True, default="")
     shipping = models.ForeignKey('userprofile.Addresses',on_delete = models.CASCADE)
-    total = models.FloatField(default=0)
+    total = models.FloatField()
     
     def __str__(self):
         return self.email
@@ -46,5 +46,5 @@ class OrderLine(models.Model):
         return f"{self.product_name}x{self.product_price}"
     
     def get_sub_total(self):
-        return self.product_price * self.quantity
+        return round(self.product_price * self.quantity, 2)
     
