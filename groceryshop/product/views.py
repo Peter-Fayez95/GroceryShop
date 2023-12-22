@@ -2,7 +2,7 @@ from typing import Any
 from django.db.models.query import QuerySet
 from django.shortcuts import get_object_or_404,render
 from django.views.generic import ListView, DetailView
-from .models import Product, Category
+from .models import Product, Category, Brand
 from order.models import Order, OrderLine
 from checkout.form import CheckoutLineForm
 from checkout.models import CheckoutLine, Checkout
@@ -41,6 +41,17 @@ class ListProduct(ListView):
             category__in=categories
         ).order_by('name')
         
+        return qs
+class ListProductBrand(ListView):
+    model = Product
+    template_name = 'product/list.html'  
+    paginate_by = 10
+    
+    def get_queryset(self):
+        brand = get_object_or_404(Brand, slug = self.kwargs.get('slug'))
+        qs = super(ListProductBrand,self).get_queryset().filter(
+            brand__exact= brand
+        ).order_by('name')
         
         return qs
     

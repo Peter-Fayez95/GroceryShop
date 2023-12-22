@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <h1 class="custom-heading"> {{ object.name }}</h1>
+    
     <div id="carouselExampleIndicators" class="carousel slide">
         <div class="carousel-indicators">
         <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -26,21 +28,29 @@
         <span class="visually-hidden">Next</span>
         </button>
     </div>
+    <div class="container">
+        <ul class="list-group">
+            <li class="list-group-item">Price: {{ object.price }}</li>
+            <li class="list-group-item">Weight: {{ object.weight }}</li>
+            <li class="list-group-item">
+                Brand: <a href="{% url "products:list_product_brand" slug=object.brand.slug %}">{{ object.brand }}</a>
+            </li>
+            <li class="list-group-item">SKU: {{ object.sku }}</li>
+            <li class="list-group-item">Description: {{ object.description }}</li>
+          </ul>
+    
+        <form action = "{% url 'products:add_product_to_checkout' pk=object.pk %}" method = "post" class="form-container">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class = "btn btn-outline-success">Add To Cart</button>
+        </form>
 
-    <h1> {{ object.name }}</h1>
-    <p> price: {{ object.price }}</p>
-    <p> sku: {{ object.sku }}</p>
-    <p> weight: {{ object.weight }}</p>
-    <p> brand: {{ object.brand }}</p>
-    <p> description: {{ object.description }}</p>
-    <form action = "{% url 'products:add_product_to_checkout' pk=object.pk %}" method = "post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button class = "btn btn-primary">Add To Cart</button>
-    </form>
-
-    <ul>
-        <li>Count of users who bought this item: {{ users_total }}</li>
-        <li>Count of users who bought this item in the last 24 hours: {{ users_last_24 }}</li>
-    </ul>
+        <ul class="list-group">
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            Count of users who bought this item:
+            <span class="badge bg-primary rounded-pill">{{ users_total }}</span></li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">Count of users who bought this item in the last 24 hours: <span class="badge bg-primary rounded-pill">{{ users_last_24 }}</span></li>
+        </ul>
+    </div>
+    
 {% endblock %}
