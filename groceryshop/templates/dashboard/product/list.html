@@ -1,14 +1,14 @@
 {% extends 'dashboard/base.html' %}
 
-
+{% block search %}
+  <a class="btn btn-outline-secondary" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+    Search
+  </a>
+{% endblock %}
 
 {% block dashcontent %}
- 
-    <form action="{% url 'dashboard:product_dashboard:product_list' %}" method="get" class="form-container">
-      {% csrf_token %}
-      {{ filter_form.as_p }}
-      <button class = "btn btn-outline-success" type="submit">Search or Filter</button>
-    </form>
+    
+    
     <div class="pagination">
       {% if is_paginated %}  
           {% if page_obj.has_previous %}
@@ -30,21 +30,28 @@
       <div>
     {% endif %}
 
-    <div class="object-list">
-    {% for object in object_list %} 
-      <a class="object-item" href="{% url 'products:detail_product' slug=object.slug%}">
-        <img src="{{ object.get_thumbnail.image_url }}" alt="{{ object.get_thumbnail.alt }}">
-        <h5>{{ object.name }}</h5>
-        <h5>EGP {{ object.price }}</h5>
-    </a>
-      {% if request.user.is_staff or request.user.is_superuser %}
-
-      <button class="btn btn-outline-danger" data-delete-url="{% url 'dashboard:product_dashboard:delete_product' pk=object.pk %}" type="button" class="btn btn-primary delete-modal" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Delete Product
-      </button>
-      {% endif %}
-    {% endfor %}
-  </div>
+    <div class="row row-cols-1 row-cols-md-4 g-1">
+      {% for object in object_list %} 
+        <div class="col">
+        <div class="card" style="width:18rem;">
+        <div class="btn btn-outline-success">
+          <a style="text-decoration:none" class="card-body" href="{% url 'products:detail_product' slug=object.slug%}">
+            <p class="text-center">
+              <img class="card-img-top" src="{{ object.get_thumbnail.image_url }}" alt="{{ object.get_thumbnail.alt }}">
+            </p>
+          <h5>{{ object.name }}</h5>
+          <h5>EGP {{ object.price }}</h5>
+          </a>
+          {% if request.user.is_staff or request.user.is_superuser %}
+            <button class="btn btn-outline-danger" data-delete-url="{% url 'dashboard:product_dashboard:delete_product' pk=object.pk %}" type="button" class="btn btn-primary delete-modal" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              Delete Product
+            </button>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+      {% endfor %}
+    </div>
   <div class="pagination">
     {% if is_paginated %}  
         {% if page_obj.has_previous %}

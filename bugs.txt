@@ -1,11 +1,11 @@
 0- add filter by product name / done
-1- use phone field
+1- use phone field (faakes)
 2- make a home button appear on every page or add headers on all pages / done
-3- add cool feature like random discounts, discount coupons 
-4- advertize the most selling brand, category, product 
-5- user points for buying, for every 1000 points 5 egp discount sale
+3- add cool feature like random discounts, discount coupons (later) 
+4- advertize the most selling product (done)
+5- user points for buying, for every 1000 points 5 egp discount sale (later)
 6- get db, its tables, and their schema
-7- payment simulation (faksaan)
+7- payment simulation (done)
 
 
 
