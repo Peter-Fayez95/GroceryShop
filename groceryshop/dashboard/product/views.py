@@ -42,7 +42,7 @@ class UpdateProduct(UpdateView):
 class ListProduct(ListView):
     model = Product
     template_name = "dashboard/product/list.html"
-    
+    paginate_by = 10
     context_object_name = "product_list"
 
     def get_queryset(self):
@@ -104,7 +104,7 @@ class ListProduct(ListView):
 class ProductImageList(ListView):
     model = ProductImage
     template_name = 'dashboard/product/list_images.html'    
-
+    
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(ProductImageList, self).get_context_data(**kwargs)

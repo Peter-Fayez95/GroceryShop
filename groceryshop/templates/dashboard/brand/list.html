@@ -4,22 +4,50 @@
   {% if request.user.is_staff or request.user.is_superuser %}
       <a href="{% url 'dashboard:brand_dashboard:create_brand'%}" class="create-product-link">Create Brand</a>
   {% endif %}
+  <div class="pagination">
+    {% if is_paginated %}  
+        {% if page_obj.has_previous %}
+            <a class="btn btn-outline-dark" href="?page={{ page_obj.previous_page_number }}"><b>Previous</b></a>
+        {% endif %}
+        <span>
+            <b>Page: {{ page_obj.number }} out of {{ page_obj.paginator.num_pages }}</b> 
+        </span>
+        {% if page_obj.has_next %}
+            <a class="btn btn-outline-dark" href="?page={{ page_obj.next_page_number }}"><b>Next</b></a>
+        {% endif %}
+    {% endif %}
+    </div>
   {% for object in object_list %}
-      <div class="brand-item">
+      <a href="{% url "products:list_product_brand" slug=object.slug %}"> 
+        <div class="brand-item">
           <p>{{ object.name }}</p>
           {% if object.image %}
           <img src="{{ object.image.url }}" alt="{{ object.name }}">
           {% endif %}
-          <p>ID: {{ object.id }}</p>
-          <p>Slug: {{ object.slug }}</p>
+
           {% if request.user.is_staff or request.user.is_superuser %}
+            <p>ID: {{ object.id }}</p>    
+              <p>Slug: {{ object.slug }}</p>
               <button data-delete-url="{% url 'dashboard:brand_dashboard:delete_brand' pk=object.pk %}" type="button" class="btn btn-danger delete-modal" data-bs-toggle="modal" data-bs-target="#exampleModal">
                   Delete Brand
               </button>
           {% endif %}
       </div>
+    </a>
   {% endfor %}
-  
+  <div class="pagination">
+    {% if is_paginated %}  
+        {% if page_obj.has_previous %}
+            <a class="btn btn-outline-dark" href="?page={{ page_obj.previous_page_number }}"><b>Previous</b></a>
+        {% endif %}
+        <span>
+            <b>Page: {{ page_obj.number }} out of {{ page_obj.paginator.num_pages }}</b> 
+        </span>
+        {% if page_obj.has_next %}
+            <a class="btn btn-outline-dark" href="?page={{ page_obj.next_page_number }}"><b>Next</b></a>
+        {% endif %}
+    {% endif %}
+  </div>
   <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
