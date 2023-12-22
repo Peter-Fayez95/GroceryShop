@@ -1,6 +1,6 @@
 from django.utils.text import slugify
-from django.views.generic import CreateView, UpdateView, ListView
-from product.models import Brand
+from django.views.generic import CreateView, UpdateView, ListView, DetailView
+from product.models import Brand, Product
 from django.shortcuts import get_object_or_404, render
 from django.http import JsonResponse
 
@@ -32,6 +32,26 @@ class UpdateBrand(UpdateView):
 class ListBrand(ListView):
     model = Brand
     template_name = "dashboard/brand/list.html"
+    paginate_by = 10
+    def get_queryset(self):
+        return super().get_queryset().order_by('name')
+    
+    
+# class DetailBrand(DetailView):
+#     model = Brand
+#     template_name = "dashboard/brand/detail.html"
+
+
+# def brand_detail(request, pk):
+
+#     brand = get_object_or_404(Brand, pk = pk)
+#     products = Product.objects.filter(brand = brand)
+#     context = {
+#         'brand' : brand,
+#         'products' : products,
+#     }
+    
+#     return render(request, 'dashboard/brand/detail.html', context)
     
 
 def delete_brand(request,pk):
