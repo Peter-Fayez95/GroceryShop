@@ -45,7 +45,7 @@ def checkout_view(request):
     context ={
         'checkout_line': CheckoutLine.objects.filter(checkout=checkout),
         'checkout': checkout,
-        'total' : total
+        'total' : round(total, 2)
     }
     return TemplateResponse(request, 'checkout/index.html', context)
 
@@ -106,18 +106,9 @@ def create_order_view(request):
     if checkout_line.count() > 0:
         for line in checkout_line: 
             total += line.get_sub_total()
-
+    total = round(total, 2)
     if request.method == "POST":
         if checkout_line.count() > 0:
-            if user.is_authenticated:
-                order = Order.objects.create(checkout_token=checkout.token, user=user, 
-                                             email=user.email, shipping=checkout.shipping, total=total)
-                
-            else:
-                order = Order.objects.create(checkout_token=checkout.token, email=checkout.email, 
-                                               shipping=checkout.shipping, total=total)
-            
-            # print("-"*20)
             form = PaymentCardForm(request.POST)
             
             if not form.is_valid():
@@ -129,6 +120,16 @@ def create_order_view(request):
                 }
                 return TemplateResponse(request, 'checkout/confirm_order.html', context)
             
+            if user.is_authenticated:
+                order = Order.objects.create(checkout_token=checkout.token, user=user, 
+                                             email=user.email, shipping=checkout.shipping, total=total)
+                
+            else:
+                order = Order.objects.create(checkout_token=checkout.token, email=checkout.email, 
+                                               shipping=checkout.shipping, total=total)
+            
+            # print("-"*20)
+
             for line in checkout_line:
                 product = line.product
                 order_line = OrderLine.objects.create(order=order, product=product, 
