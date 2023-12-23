@@ -1,0 +1,11 @@
+databases:
+  - name: main_db
+    databaseName: main_db
+    user: main_db_user
+
+services:
+  - type: web
+    name: mysite
+    runtime: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "./build.sh"
