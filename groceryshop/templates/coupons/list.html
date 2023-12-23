@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% for coupon in percent_coupons %}
+        <p>Percent Coupon #{{ forloop.counter }}, Discount: {{ coupon.percent}}%</p>
+    {% empty %}
+        <p>Sorry, you do not have any percent coupons</p>    
+    {% endfor %}
+    {% for coupon in voucher_coupons %}
+        <p>Voucher Coupon #{{ forloop.counter }}, Discount: EGP {{ coupon.amount }}</p>    
+    {% empty %}
+        <p>Sorry, you do not have any voucher coupons</p>
+    {% endfor %}
+{% endblock %}
