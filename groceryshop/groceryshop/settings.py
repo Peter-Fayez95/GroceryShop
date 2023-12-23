@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     "order.apps.OrderConfig",
-    "userprofile.apps.UserprofileConfig",
+    "groceryshop.userprofile.apps.UserprofileConfig",
     "product.apps.ProductConfig",
     "checkout.apps.CheckoutConfig",
     'allauth',
