@@ -48,10 +48,6 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'django_extensions',
-    # 'groceryshop.userprofile',
-    # 'groceryshop.product',
-    # 'groceryshop.checkout',
-    # 'groceryshop.order',
 ]
 
 SITE_ID = 1
