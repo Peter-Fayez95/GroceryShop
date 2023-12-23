@@ -62,10 +62,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     # Add the account middleware:
     "allauth.account.middleware.AccountMiddleware",
-    "groceryshop.userprofile",
-    "groceryshop.product",
-    "groceryshop.checkout",
-    "groceryshop.order",
 ]
 
 ROOT_URLCONF = 'groceryshop.urls'
