@@ -1,14 +1,17 @@
 from product.models import Category, Brand, Product, ProductImage
 from csv import reader
-
+from django.contrib.auth.models import User
+    
 
 # name - Brand - Price - image_url
 def run():
+    User.objects.create_superuser(username='mongy', password='f3b4a44410a4d783b4cfa65c69a41a57', email='mongy@example.com')
     Category.objects.all().delete()
     Brand.objects.all().delete()
     Product.objects.all().delete()
-    
     ProductImage.objects.all().delete()
+    
+
     
     grocery_cat = Category.objects.get_or_create(name = "grocery", slug = "grocery-1", description = "grocery items" )[0]
     
