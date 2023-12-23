@@ -40,14 +40,18 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    "order.apps.OrderConfig",
+    "userprofile.apps.UserprofileConfig",
+    "product.apps.ProductConfig",
+    "checkout.apps.CheckoutConfig",
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'django_extensions',
-    'groceryshop.userprofile',
-    'groceryshop.product',
-    'groceryshop.checkout',
-    'groceryshop.order',
+    # 'groceryshop.userprofile',
+    # 'groceryshop.product',
+    # 'groceryshop.checkout',
+    # 'groceryshop.order',
 ]
 
 SITE_ID = 1
