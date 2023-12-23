@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    "groceryshop.order.apps.OrderConfig",
+    "groceryshop.order",
     "groceryshop.userprofile.apps.UserprofileConfig",
     "product.apps.ProductConfig",
     "checkout.apps.CheckoutConfig",
