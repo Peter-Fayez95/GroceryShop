@@ -43,11 +43,11 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'userprofile',
-    'product',
-    'checkout',
-    'order',
     'django_extensions',
+    'groceryshop.userprofile',
+    'groceryshop.product',
+    'groceryshop.checkout',
+    'groceryshop.order',
 ]
 
 SITE_ID = 1
@@ -62,6 +62,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     # Add the account middleware:
     "allauth.account.middleware.AccountMiddleware",
+    "groceryshop.userprofile",
+    "groceryshop.product",
+    "groceryshop.checkout",
+    "groceryshop.order",
 ]
 
 ROOT_URLCONF = 'groceryshop.urls'
