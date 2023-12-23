@@ -17,11 +17,11 @@ def run():
         next(csvreader)
         
         for row in csvreader:
-            product_name, brand_name, price, image_url, country = row[0], row[1], row[3], row[4], row[5]
+            product_name, brand_name, price, image_url = row[0], row[1], row[3], row[4]
             price = price[4::]
             if price == '':
                 price = '10'
-            brand = Brand.objects.get_or_create(name = brand_name, slug = brand_name + "-1", country=country)
+            brand = Brand.objects.get_or_create(name = brand_name, slug = brand_name + "-1",)
 
             slug = ''.join(e for e in product_name if (e.isalnum() or e == ' '))
             
