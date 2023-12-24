@@ -82,6 +82,10 @@ TEMPLATES = [
                 # `allauth` needs this from django
                 'django.template.context_processors.request',
             ],
+            'libraries':{
+            'page_tag': 'dashboard.templatetags.page_tag',
+            
+            }
         },
     },
 ]
