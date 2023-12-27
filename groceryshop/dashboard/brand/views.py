@@ -32,7 +32,7 @@ class UpdateBrand(UpdateView):
 class ListBrand(ListView):
     model = Brand
     template_name = "dashboard/brand/list.html"
-    paginate_by = 12
+    paginate_by = 32
     def get_queryset(self):
         return super().get_queryset().order_by('name')
     
