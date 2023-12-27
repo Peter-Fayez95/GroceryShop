@@ -35,6 +35,7 @@
             <li class="list-group-item">
                 Brand: <a href="{% url "products:list_product_brand" slug=object.brand.slug %}">{{ object.brand }}</a>
             </li>
+            <li class="list-group-item">Origin: {{object.brand.country}}
             <li class="list-group-item">SKU: {{ object.sku }}</li>
             <li class="list-group-item">Description: {{ object.description }}</li>
           </ul>
