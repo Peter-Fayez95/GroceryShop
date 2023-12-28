@@ -56,7 +56,7 @@ class Product(models.Model):
     stock = models.PositiveIntegerField(default = 5)
     brand = models.ForeignKey('Brand',on_delete= models.CASCADE, null = True)
     category = models.ForeignKey('Category',on_delete= models.CASCADE, null = True)
-    exp_date = models.DateField('exp_date', default = date.today + timedelta(1))
+    exp_date = models.DateField('exp_date', default = date.today() + timedelta(1))
     
     def __str__(self):
         return self.name
