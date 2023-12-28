@@ -89,7 +89,7 @@ class Product(models.Model):
 # name - image url - price - brand
     
 class ProductImage(models.Model):
-    image = models.ImageField(blank = True, null = True)
+    # image = models.ImageField(blank = True, null = True)
     image_url = models.URLField(blank = True)
     product = models.ForeignKey('Product', on_delete = models.CASCADE)
     alt = models.CharField(max_length = 225)
