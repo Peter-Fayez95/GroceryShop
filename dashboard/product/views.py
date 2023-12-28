@@ -134,7 +134,7 @@ def create_image(request, pk):
         obj.save()
         return JsonResponse({
             'message':'product image successfully created','alt' : obj.alt,
-            'url': obj.image.url,
+            'url': obj.image_url,
             'delete_url': reverse('dashboard:product_dashboard:delete_image',kwargs={
                                  'pk': obj.pk})}, 
             status = 200)
