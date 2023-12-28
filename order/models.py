@@ -18,7 +18,7 @@ class Order(models.Model):
     note = models.TextField(blank=True, default="")
     shipping = models.ForeignKey('userprofile.Addresses',on_delete = models.CASCADE)
     total = models.FloatField()
-    total_discount = models.FloatField()
+    total_discount = models.FloatField(default = 0)
     
     def __str__(self):
         return self.email
