@@ -34,28 +34,7 @@
               </tr>
             </thead>
             <tbody>
-            {% for order in orders %}
-            {% comment %} <div class="order-container">
-                <a href="{% url 'order:detail_order' pk=order.pk %}"> 
-
-                    <p>{{ order.created }} | 
-                        {% if order.status == 0  %}
-                            delivered
-                        {% elif order.status == 1 %}
-                            not delivered
-                        {% elif order.status == 2 %}
-                            Canceled
-                        {% elif order.status == 3 %}
-                            Refunded
-                        {% else%}
-                            unknow status
-                        {% endif %}    
-                    
-                    
-                    |  total price: {{ order.total }}$</p>
-                </a>
-            </div> {% endcomment %}
-                
+            {% for order in orders %}                
                     <tr>
                         <th scope="row">
                             <a style="text-decoration:none;" href="{% url 'order:detail_order' pk=order.pk %}"> Order #{{ forloop.revcounter }}</a>

@@ -11,7 +11,7 @@ from django.urls import reverse
 from .forms import FilterForm
 from django.db.models import Count
 from math import inf
-
+from datetime import date
 
 class CreateProduct(CreateView):
     model = Product
@@ -48,7 +48,7 @@ class ListProduct(ListView):
     context_object_name = "product_list"
 
     def get_queryset(self):
-        queryset = super().get_queryset()
+        queryset = super().get_queryset().filter(exp_date__gt = date.now())
 
 
         # Filter queryset based on price if form data is present

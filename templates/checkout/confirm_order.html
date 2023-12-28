@@ -7,11 +7,17 @@
                 {% for line in checkout_line %}
                     <div class="col-md-12">
                         <p>{{ line }} [{{ line.product.sku }}]</p>
-                        <p>{{ line.quantity  }} x {{ line.product.price }}$</p>
+                        {% if line.product.expired == 1 %}
+                            <p>{{ line.quantity  }} x {{ line.product.discounted_price }}$</p>
+                        {% else %}
+                            <p>{{ line.quantity  }} x {{ line.product.price }}$</p>
+                        {% endif %}
                         <p>subtotal: {{ line.get_sub_total }}</p>
                         <hr> 
                     </div>
                 {% endfor %}
+                <p>discount: {{ total_discount }}</p>
+                <hr>
                 <p> total : {{total}} </p>
             {% endif %}
             <form action="{% url 'checkout:create_order_view' %}" method="post">
@@ -20,11 +26,6 @@
                 <button type="submit" class="btn btn-success">Buy Now</button> 
             </form>
             
-            {% comment %} <form action="{% url 'checkout:create_order_view' %}" method="post">
-                {% csrf_token %}
-                <input type="hidden" name="lucky" value="true">
-                <button type="submit" class="btn btn-success">I'm Feeling Lucky</button> 
-            </form> {% endcomment %}
         </div>
     </div>
 {% endblock %}

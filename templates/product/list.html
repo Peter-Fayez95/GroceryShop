@@ -26,7 +26,12 @@
                 <img class="card-img-top" src="{{ object.get_thumbnail.image_url }}" alt="{{ object.get_thumbnail.alt }}">
                 </p>
                 <h5>{{ object.name }}</h5>
-                <h5>EGP {{ object.price }}</h5>
+                {% if object.expired == 1 %}
+                    <h5><s>EGP{{ object.price }}</s></h5>
+                    <h5>EGP{{ object.discounted_price }}</h5>
+                {% else %}
+                    <h5>EGP {{ object.price }}</h5>
+                {% endif %}
             </a>
             </div>
         </div>

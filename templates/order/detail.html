@@ -14,7 +14,11 @@
                         <tr>
                         {% comment %} <td> {{ foo }} </td> {% endcomment %}
                         <td>{{ foo.product }} [{{ foo.sku }}]</td>
-                        <td>{{ foo.product_price }}</td>
+                        {% if foo.product.expired == 1 %}
+                            <td> <s>EGP{{ foo.product.price }}</s> EGP{{ foo.product.discounted_price }} </td>
+                        {% else %}
+                            <td>EGP{{ foo.product.price }}</td>
+                        {% endif %}
                         <td>{{ foo.quantity }}</td>
                         <td>{{ foo.get_sub_total }}</td>
                     {% empty %}

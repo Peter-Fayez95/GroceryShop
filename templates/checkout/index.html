@@ -18,6 +18,7 @@
                         <hr> 
                     </div>
                 {% endfor %}
+                <p>total_discount: {{total_discount}}</p>
                 <p>total: {{ total }}</p>
 
                 <a class="btn btn-primary" href="{% url 'checkout:checkout_create_address' %}">Next</a>

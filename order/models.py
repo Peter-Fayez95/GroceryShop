@@ -18,6 +18,7 @@ class Order(models.Model):
     note = models.TextField(blank=True, default="")
     shipping = models.ForeignKey('userprofile.Addresses',on_delete = models.CASCADE)
     total = models.FloatField()
+    total_discount = models.FloatField()
     
     def __str__(self):
         return self.email
@@ -44,8 +45,14 @@ class OrderLine(models.Model):
     quantity = models.PositiveIntegerField()
     
     def __str__(self):
+        if self.product.expired == 1:
+            return f"{self.product_name}x{self.product.discounted_price}"
+        
         return f"{self.product_name}x{self.product_price}"
     
     def get_sub_total(self):
-        return round(self.product_price * self.quantity, 2)
+        if self.product.expired == 1:
+            return round(self.product.discounted_price * self.quantity, 2)
+        
+        return round(self.product.price * self.quantity, 2)
     

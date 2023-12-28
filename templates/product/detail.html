@@ -30,7 +30,13 @@
     </div>
     <div class="container">
         <ul class="list-group">
-            <li class="list-group-item">Price: {{ object.price }}</li>
+            <li class="list-group-item">Price: 
+                {% if object.expired == 1 %}
+                <s>EGP{{ object.price }}</s>  EGP{{ object.discounted_price }}
+                {% else %}
+                {{ object.price }}</h5>
+                {% endif %}
+            </li>
             <li class="list-group-item">Weight: {{ object.weight }}</li>
             <li class="list-group-item">
                 Brand: <a href="{% url "products:list_product_brand" slug=object.brand.slug %}">{{ object.brand }}</a>
