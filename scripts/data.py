@@ -1,14 +1,23 @@
 from product.models import Category, Brand, Product, ProductImage
 from csv import reader
-
+from django.contrib.auth.models import User
+import os
 
 # name - Brand - Price - image_url
 def run():
+    try:
+        User.objects.create_superuser(
+            username= "Peter",
+            password= os.environ.get("password"),
+            email= "peter@example.com"
+        )
+    except:
+        x = 1
     Category.objects.all().delete()
     Brand.objects.all().delete()
     Product.objects.all().delete()
-    
     ProductImage.objects.all().delete()
+    
     grocery_cat = Category.objects.get_or_create(name = "grocery", slug = "grocery-1", description = "grocery items" )[0]
     upload_carrefour_data(grocery_cat)
     upload_amazon_data(grocery_cat)
