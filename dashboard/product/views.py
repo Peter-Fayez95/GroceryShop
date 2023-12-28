@@ -44,7 +44,7 @@ class UpdateProduct(UpdateView):
 class ListProduct(ListView):
     model = Product
     template_name = "dashboard/product/list.html"
-    paginate_by = 32
+    paginate_by = 12
     context_object_name = "product_list"
 
     def get_queryset(self):
