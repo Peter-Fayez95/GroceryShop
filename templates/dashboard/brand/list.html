@@ -22,7 +22,7 @@
         <div class="brand-item">
           <p>{{ object.name }}</p>
           {% if object.image %}
-          <img src="{{ object.image.url }}" alt="{{ object.name }}">
+          <img src="{{ object.image_url }}" alt="{{ object.name }}">
           {% endif %}
 
           {% if request.user.is_staff or request.user.is_superuser %}
