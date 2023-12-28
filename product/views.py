@@ -8,7 +8,7 @@ from checkout.form import CheckoutLineForm
 from checkout.models import CheckoutLine, Checkout
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from datetime import timedelta, date
+from datetime import timedelta, datetime
 from django.utils import timezone
 
 
@@ -39,7 +39,7 @@ class ListProduct(ListView):
         categories = category.get_descendants(include_self=True)
         
         qs = super(ListProduct,self).get_queryset().filter(
-            category__in=categories, exp_date__gt = date.now()
+            category__in=categories, exp_date__gt = datetime.today()
         ).order_by('name')
         
         return qs
@@ -51,7 +51,7 @@ class ListProductBrand(ListView):
     def get_queryset(self):
         brand = get_object_or_404(Brand, slug = self.kwargs.get('slug'))
         qs = super(ListProductBrand,self).get_queryset().filter(
-            brand__exact= brand, exp_date__gt = date.now()
+            brand__exact= brand, exp_date__gt = datetime.today()
         ).order_by('name')
         
         return qs
