@@ -56,7 +56,7 @@ class Product(models.Model):
     stock = models.PositiveIntegerField(default = 5)
     brand = models.ForeignKey('Brand',on_delete= models.CASCADE, null = True)
     category = models.ForeignKey('Category',on_delete= models.CASCADE, null = True)
-    exp_date = models.DateTimeField('exp_date',null = True)
+    exp_date = models.DateField('exp_date', default = date.today + timedelta(1))
     
     def __str__(self):
         return self.name
@@ -75,6 +75,7 @@ class Product(models.Model):
         1: about to expire
         2: more than 30 days before expiratin        
         '''
+        return 1
         if self.exp_date  <= date.today():
             return 0
         elif self.exp_date > timedelta(30) + date.today():
