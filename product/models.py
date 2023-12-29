@@ -5,7 +5,7 @@ from mptt.managers import TreeManager
 from mptt.models import MPTTModel
 from django_countries.fields import CountryField
 from datetime import date, timedelta
-from math import randint
+from random import randint
 import uuid
 
 fields = ["name", "description", "background_image"]
