@@ -75,7 +75,7 @@ class Product(models.Model):
         1: about to expire
         2: more than 30 days before expiratin        
         '''
-        return 1
+        # return 1
         if self.exp_date  <= date.today():
             return 0
         elif self.exp_date > timedelta(30) + date.today():
