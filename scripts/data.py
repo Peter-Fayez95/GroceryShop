@@ -17,12 +17,12 @@ def run():
     except:
         x = 1
         
-    Order.objects.all().delete()
-    OrderLine.objects.all().delete()
-    ProductImage.objects.all().delete()
-    Product.objects.all().delete()
-    Category.objects.all().delete()
-    Brand.objects.all().delete()
+    # Order.objects.all().delete()
+    # OrderLine.objects.all().delete()
+    # ProductImage.objects.all().delete()
+    # Product.objects.all().delete()
+    # Category.objects.all().delete()
+    # Brand.objects.all().delete()
     
     grocery_cat = Category.objects.get_or_create(name = "grocery", slug = "grocery-1", description = "grocery items" )[0]
     upload_carrefour_data(grocery_cat)
