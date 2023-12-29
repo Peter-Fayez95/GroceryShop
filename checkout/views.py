@@ -150,7 +150,7 @@ def create_order_view(request):
                 # real_product.
             
             order.total = round(total - total_discount,2)
-            order.discount = round(total_discount, 2)
+            order.total_discount = round(total_discount, 2)
             order.save()
             checkout.delete()
             response = HttpResponseRedirect(reverse('order:detail_order', kwargs={

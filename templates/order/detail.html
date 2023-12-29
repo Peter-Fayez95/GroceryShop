@@ -13,14 +13,16 @@
                 {% for foo in object.orderlines.all %} 
                         <tr>
                         {% comment %} <td> {{ foo }} </td> {% endcomment %}
-                        <td>{{ foo.product }} [{{ foo.sku }}]</td>
+                        <td>{{ foo.product }} </td>
                         {% if foo.product.expired == 1 %}
-                            <td> EGP{{ foo.product.discounted_price }} </td>
+                            <td><s>EGP{{ foo.product.price }}</s> EGP{{ foo.product.discounted_price }} </td>
+                            <td>{{ foo.quantity }}</td>
+                            <td>{{ foo.get_sub_total_discount }}</td>
                         {% else %}
                             <td>EGP{{ foo.product.price }}</td>
+                            <td>{{ foo.quantity }}</td>
+                            <td>{{ foo.get_sub_total }}</td>
                         {% endif %}
-                        <td>{{ foo.quantity }}</td>
-                        <td>{{ foo.get_sub_total }}</td>
                     {% empty %}
                         <h1>empty</h1>
                     </tr>
