@@ -40,6 +40,7 @@ def upload_carrefour_data(grocery_cat):
             next(csvreader)
             
             for row in csvreader:
+             try:
                 product_name, brand_name, price, image_url, country = row[0], row[1], row[2], row[3], row[4]
                 if product_name == 'Unknown':
                     continue
@@ -59,13 +60,15 @@ def upload_carrefour_data(grocery_cat):
                 )
                 
                 image = ProductImage.objects.get_or_create(image_url=image_url, product = product[0], alt = product_name)
-
+             except:
+                 continue
 def upload_amazon_data(grocery_cat):
     with open("products.csv", 'r') as file:
         csvreader = reader(file, delimiter=',')
         next(csvreader)
         
         for row in csvreader:
+         try:
             product_name, brand_name, price, image_url, country = row[0], row[1], row[3], row[4], row[5]
             if product_name == 'Unknown':
                 continue
@@ -85,6 +88,8 @@ def upload_amazon_data(grocery_cat):
             )
             
             image = ProductImage.objects.get_or_create(image_url=image_url, product = product[0], alt = product_name)
+         except:
+             continue
 
 def upload_amazon_NonEG():
        with open("amazon_india.csv", 'r') as file:
@@ -92,6 +97,7 @@ def upload_amazon_NonEG():
         next(csvreader)
         
         for row in csvreader:
+         try:
             product_name, brand_name, price, image_url, country = row[1], row[1], row[4], row[14], 'IN'
             if(len(product_name) > 250):
                 product_name = product_name[:250]
@@ -121,7 +127,7 @@ def upload_amazon_NonEG():
             exp_date = date.today() + timedelta(days = randint(20, 90))
             )
 
-            try:
-                image = ProductImage.objects.get_or_create(image_url=image_url, product = product[0], alt = product_name)
-            except:
-                continue
+            
+            image = ProductImage.objects.get_or_create(image_url=image_url, product = product[0], alt = product_name)
+         except:
+            continue
