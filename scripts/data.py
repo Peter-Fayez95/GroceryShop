@@ -1,4 +1,5 @@
 from product.models import Category, Brand, Product, ProductImage
+from order.models import Order, OrderLine
 from csv import reader
 from django.contrib.auth.models import User
 import os
@@ -13,6 +14,9 @@ def run():
         )
     except:
         x = 1
+        
+    Order.objects.all().delete()
+    OrderLine.objects.all().delete()
     ProductImage.objects.all().delete()
     Product.objects.all().delete()
     Category.objects.all().delete()
