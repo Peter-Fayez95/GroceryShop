@@ -41,6 +41,8 @@ def upload_carrefour_data(grocery_cat):
             
             for row in csvreader:
                 product_name, brand_name, price, image_url, country = row[0], row[1], row[2], row[3], row[4]
+                if product_name == 'Unknow':
+                    continue
                 price = price[:-4:]
                 if price == '':
                     price = '10'
@@ -65,6 +67,8 @@ def upload_amazon_data(grocery_cat):
         
         for row in csvreader:
             product_name, brand_name, price, image_url, country = row[0], row[1], row[3], row[4], row[5]
+            if product_name == 'Unknow':
+                continue
             price = price[4::]
             if price == '':
                 price = '10'
@@ -91,7 +95,8 @@ def upload_amazon_NonEG():
             product_name, brand_name, price, image_url, country = row[1], row[1], row[4], row[14], 'IN'
             if(len(product_name) > 250):
                 product_name = product_name[:250]
-            
+            if product_name == 'Unknow':
+                continue
             brand_name = brand_name.split(' ')[0]
             if(len(brand_name) > 250):
                 brand_name = brand_name[:250]
