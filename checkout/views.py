@@ -32,7 +32,7 @@ def checkout_view(request):
         checkout_line = checkout.checkoutline_set.all()
         for line in checkout_line:
             total += line.get_sub_total()
-            total_discount += line.get_sub_total_discount()
+            total_discount += line.get_sub_total() - line.get_sub_total_discount()
             
     except Checkout.DoesNotExist:
         is_none = True
@@ -48,7 +48,7 @@ def checkout_view(request):
         'checkout_line': CheckoutLine.objects.filter(checkout=checkout),
         'checkout': checkout,
         'total_discount' : total_discount,
-        'total' : round(total, 2) - total_discount
+        'total' : round(total - total_discount, 2)
     }
     return TemplateResponse(request, 'checkout/index.html', context)
 
@@ -110,7 +110,8 @@ def create_order_view(request):
     if checkout_line.count() > 0:
         for line in checkout_line: 
             total += line.get_sub_total()
-            total_discount += line.get_sub_total_discount()
+            total_discount += line.get_sub_total() - line.get_sub_total_discount()
+            
     total = round(total, 2)
     if request.method == "POST":
         if checkout_line.count() > 0:

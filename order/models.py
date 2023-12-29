@@ -58,5 +58,5 @@ class OrderLine(models.Model):
     
     def get_sub_total_discount(self):
         if self.product.expired == 1:
-          return round(self.get_sub_total() - round(self.product.discounted_price * self.quantity, 2), 2)
-        return 0
+          return round(self.product.discounted_price * self.quantity, 2)
+        return self.get_sub_total()
