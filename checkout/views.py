@@ -48,7 +48,7 @@ def checkout_view(request):
         'checkout_line': CheckoutLine.objects.filter(checkout=checkout),
         'checkout': checkout,
         'total_discount' : total_discount,
-        'total' : round(total, 2)
+        'total' : round(total, 2) - total_discount
     }
     return TemplateResponse(request, 'checkout/index.html', context)
 
@@ -120,7 +120,7 @@ def create_order_view(request):
                 context = {
                     'checkout_line': checkout_line,
                     'checkout': checkout,
-                    'total': total,
+                    'total': total - total_discount,
                     'total_discount': total_discount,
                     'form': form
                 }
