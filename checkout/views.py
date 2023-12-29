@@ -26,11 +26,13 @@ def get_checkout(request):
 def checkout_view(request):
     is_none = False
     total = 0
+    total_discount = 0
     try:
         checkout = get_checkout(request)
         checkout_line = checkout.checkoutline_set.all()
         for line in checkout_line:
             total += line.get_sub_total()
+            total_discount += line.get_sub_total_discount()
             
     except Checkout.DoesNotExist:
         is_none = True
@@ -45,6 +47,7 @@ def checkout_view(request):
     context ={
         'checkout_line': CheckoutLine.objects.filter(checkout=checkout),
         'checkout': checkout,
+        'total_discount' : total_discount,
         'total' : round(total, 2)
     }
     return TemplateResponse(request, 'checkout/index.html', context)
@@ -102,10 +105,12 @@ def create_order_view(request):
     checkout = get_checkout(request)
     checkout_line = checkout.checkoutline_set.all()
     total = 0
+    total_discount = 0
 
     if checkout_line.count() > 0:
         for line in checkout_line: 
             total += line.get_sub_total()
+            total_discount += line.get_sub_total_discount()
     total = round(total, 2)
     if request.method == "POST":
         if checkout_line.count() > 0:
@@ -116,6 +121,7 @@ def create_order_view(request):
                     'checkout_line': checkout_line,
                     'checkout': checkout,
                     'total': total,
+                    'total_discount': total_discount,
                     'form': form
                 }
                 return TemplateResponse(request, 'checkout/confirm_order.html', context)
@@ -129,20 +135,20 @@ def create_order_view(request):
                                                shipping=checkout.shipping, total=total)
             
             # print("-"*20)
-            total_discount = 0
+            # total_discount = 0
             for line in checkout_line:
                 product = line.product
                 
                 order_line = OrderLine.objects.create(order=order, product=product, 
                                         product_name=product.name, product_price=product.price, 
                                         sku=product.sku, quantity=line.quantity)
-                if product.expired == 1:
-                    total_discount += product.price - product.discounted_price
+                # if product.expired == 1:
+                    # total_discount += product.price - product.discounted_price
                 # total += order_line.get_sub_total()
                 Product.objects.filter(sku=product.sku).update(stock=product.stock-line.quantity)
                 # real_product.
             
-            order.total = total -total_discount
+            order.total = total - total_discount
             order.discount = total_discount
             order.save()
             checkout.delete()
@@ -157,7 +163,7 @@ def create_order_view(request):
     context = {
         'checkout_line': checkout_line,
         'checkout': checkout,
-        'total': total,
+        'total': total - total_discount,
         'total_discount': total_discount,
         'form': form
     }

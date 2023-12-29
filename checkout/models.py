@@ -49,10 +49,14 @@ class CheckoutLine(models.Model):
     
     def get_sub_total(self):
         
-        if self.product.expired == 1:
-            return round(self.product.discounted_price * self.quantity, 2)
+        # if self.product.expired == 1:
+        #     return round(self.product.discounted_price * self.quantity, 2)
         
-        return round(self.product.price * self.quantity, 2)
+        return round(self.product.price * self.quantity, 2), 0
     
+    def get_sub_total_discount(self):
+        if self.product.expired == 1:
+          return round(self.product.discounted_price * self.quantity, 2)
+        return 0
     
 
