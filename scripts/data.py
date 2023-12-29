@@ -25,9 +25,9 @@ def run():
     Brand.objects.all().delete()
     
     grocery_cat = Category.objects.get_or_create(name = "grocery", slug = "grocery-1", description = "grocery items" )[0]
-    # upload_carrefour_data(grocery_cat)
+    upload_carrefour_data(grocery_cat)
     upload_amazon_data(grocery_cat)
-    # upload_amazon_NonEG()
+    upload_amazon_NonEG()
     
      
 def upload_carrefour_data(grocery_cat):
