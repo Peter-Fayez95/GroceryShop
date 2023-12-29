@@ -5,7 +5,6 @@ from mptt.managers import TreeManager
 from mptt.models import MPTTModel
 from django_countries.fields import CountryField
 from datetime import date, timedelta
-from random import randint
 import uuid
 
 fields = ["name", "description", "background_image"]
@@ -57,7 +56,7 @@ class Product(models.Model):
     stock = models.PositiveIntegerField(default = 5)
     brand = models.ForeignKey('Brand',on_delete= models.CASCADE, null = True)
     category = models.ForeignKey('Category',on_delete= models.CASCADE, null = True)
-    exp_date = models.DateField('exp_date', default = date.today() + timedelta(days = randint(20, 100)))
+    exp_date = models.DateField('exp_date', default = date.today() + timedelta(days = 25))
     
     def __str__(self):
         return self.name

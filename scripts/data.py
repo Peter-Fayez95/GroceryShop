@@ -2,6 +2,8 @@ from product.models import Category, Brand, Product, ProductImage
 from order.models import Order, OrderLine
 from csv import reader
 from django.contrib.auth.models import User
+from random import randint
+from datetime import date, timedelta
 import os
 
 # name - Brand - Price - image_url
@@ -50,7 +52,8 @@ def upload_carrefour_data(grocery_cat):
                 slug = slug.replace(' ', '_') + "-1",
                 price = float(price), brand = brand[0],
                 description = product_name,
-                category = grocery_cat
+                category = grocery_cat,
+                exp_date = date.today() + timedelta(days = randint(20, 90))
                 )
                 
                 image = ProductImage.objects.get_or_create(image_url=image_url, product = product[0], alt = product_name)
@@ -73,7 +76,8 @@ def upload_amazon_data(grocery_cat):
             slug = slug.replace(' ', '_') + "-1",
             price = float(price), brand = brand[0],
             description = product_name,
-            category = grocery_cat
+            category = grocery_cat,
+            exp_date = date.today() + timedelta(days = randint(20, 90))
             )
             
             image = ProductImage.objects.get_or_create(image_url=image_url, product = product[0], alt = product_name)
@@ -107,11 +111,12 @@ def upload_amazon_NonEG():
             slug = slug.replace(' ', '_') + "-1",
             price = float(price), brand = brand[0],
             description = description[:250:],
-            category = Category.objects.get_or_create(name = category_name, slug = category_name + "-1", description = category_name )[0]
+            category = Category.objects.get_or_create(name = category_name,
+                        slug = category_name + "-1", description = category_name )[0],
+            exp_date = date.today() + timedelta(days = randint(20, 90))
             )
 
             try:
                 image = ProductImage.objects.get_or_create(image_url=image_url, product = product[0], alt = product_name)
             except:
-                print(product[0])
                 continue
