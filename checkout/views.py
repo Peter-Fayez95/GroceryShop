@@ -47,7 +47,7 @@ def checkout_view(request):
     context ={
         'checkout_line': CheckoutLine.objects.filter(checkout=checkout),
         'checkout': checkout,
-        'total_discount' : total_discount,
+        'total_discount' : round(total_discount, 2),
         'total' : round(total - total_discount, 2)
     }
     return TemplateResponse(request, 'checkout/index.html', context)
@@ -121,8 +121,8 @@ def create_order_view(request):
                 context = {
                     'checkout_line': checkout_line,
                     'checkout': checkout,
-                    'total': total - total_discount,
-                    'total_discount': total_discount,
+                    'total': round(total - total_discount,2),
+                    'total_discount': round(total_discount, 2),
                     'form': form
                 }
                 return TemplateResponse(request, 'checkout/confirm_order.html', context)
@@ -149,8 +149,8 @@ def create_order_view(request):
                 Product.objects.filter(sku=product.sku).update(stock=product.stock-line.quantity)
                 # real_product.
             
-            order.total = total - total_discount
-            order.discount = total_discount
+            order.total = round(total - total_discount,2)
+            order.discount = round(total_discount, 2)
             order.save()
             checkout.delete()
             response = HttpResponseRedirect(reverse('order:detail_order', kwargs={
@@ -164,8 +164,8 @@ def create_order_view(request):
     context = {
         'checkout_line': checkout_line,
         'checkout': checkout,
-        'total': total - total_discount,
-        'total_discount': total_discount,
+        'total': round(total - total_discount, 2),
+        'total_discount': round(total_discount, 2),
         'form': form
     }
     return TemplateResponse(request, 'checkout/confirm_order.html', context)

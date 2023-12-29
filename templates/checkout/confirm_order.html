@@ -8,7 +8,7 @@
                     <div class="col-md-12">
                         <p>{{ line.quantity  }} x {{ line }}</p>
                         {% if line.product.expired == 1 %}
-                            <p><s>{{ line.product.price }} EGP<s>  {{ line.product.discounted_price }} EGP </p>
+                            <p><s>{{ line.product.price }} EGP </s>  {{ line.product.discounted_price }} EGP </p>
                             <p>subtotal: {{ line.get_sub_total_discount }}</p>
                         {% else %}
                             <p>{{ line.product.price }} EGP</p>
