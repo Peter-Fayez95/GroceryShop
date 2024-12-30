@@ -14,6 +14,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
@@ -22,16 +23,15 @@ from django.shortcuts import redirect
 from . import settings
 
 urlpatterns = [
-    path('', lambda req: redirect('/accounts/login/')),
-    path('admin/', admin.site.urls),
-    path('accounts/', include('allauth.urls')),
-    path('dashboard/', include('dashboard.urls', namespace='dashboard')),
-    path('products/', include('product.urls', namespace='products')),
-    path('checkout/', include('checkout.urls', namespace='checkout')),
-    path('order/', include('order.urls', namespace='order')),
+    path("", lambda req: redirect("/accounts/login/")),
+    path("admin/", admin.site.urls),
+    path("accounts/", include("allauth.urls")),
+    path("dashboard/", include("dashboard.urls", namespace="dashboard")),
+    path("products/", include("product.urls", namespace="products")),
+    path("checkout/", include("checkout.urls", namespace="checkout")),
+    path("order/", include("order.urls", namespace="order")),
 ]
 
 if settings.DEBUG:
-    urlpatterns +=  static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-    urlpatterns +=  static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-    
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

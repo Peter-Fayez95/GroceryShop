@@ -10,11 +10,14 @@ class ShippingAddressForm(forms.ModelForm):
 
 class VisitorShippingAddressForm(ShippingAddressForm):
     email = forms.EmailField()
-    
+
+
 class EditShippingAddress(forms.Form):
     addresses = forms.ModelChoiceField(queryset=Addresses.objects.none())
-    
+
     def __init__(self, *args, **kwargs):
-        self.user = kwargs.pop('user')
+        self.user = kwargs.pop("user")
         super(EditShippingAddress, self).__init__(*args, **kwargs)
-        self.fields['addresses'].queryset = UserProfile.objects.get(user=self.user).user_addresses.all()
+        self.fields["addresses"].queryset = UserProfile.objects.get(
+            user=self.user
+        ).user_addresses.all()

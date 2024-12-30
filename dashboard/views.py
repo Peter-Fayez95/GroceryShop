@@ -1,8 +1,9 @@
-#This whole file is new
+# This whole file is new
 
 from django.shortcuts import render
 from order.models import Order, OrderLine
 from django.template.response import TemplateResponse
+
 
 def index(request):
 
@@ -11,9 +12,8 @@ def index(request):
     if user.is_authenticated:
         orders = Order.objects.filter(user=user).all()
 
-    
     # return render("dashboard/index.html", {
     #     "orders": orders,
     # })
     context = {"orders": orders}
-    return TemplateResponse(request,'dashboard/index.html', context)
+    return TemplateResponse(request, "dashboard/index.html", context)

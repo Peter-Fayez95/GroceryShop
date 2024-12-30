@@ -29,3 +29,6 @@ sqlparse==0.4.4
 typing-extensions==4.8.0
 urllib3==2.1.0
 python-dotenv
+black
+pre-commit
+flake8
